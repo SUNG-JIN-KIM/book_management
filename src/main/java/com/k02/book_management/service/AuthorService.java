@@ -3,29 +3,34 @@ package com.k02.book_management.service;
 import com.k02.book_management.model.Author;
 import com.k02.book_management.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
 public class AuthorService {
-    private final AuthorRepository authorRepository; // 레포지 토리 불러오기
+    private final AuthorRepository authorRepository;
 
+    public List<Author> getAll(){return authorRepository.findAll();}
+
+    public Author getById(Integer id) {
+        return authorRepository.findById(id).orElseThrow(() -> new NoSuchBeanDefinitionException("저자 없음"));
     }
 
-    public Author update(Integer id, Author updateAuthor){
+    public Author create(Author author){ return authorRepository.save(author);
+    }
+
+    public Author update(Integer id, Author updatedAuthor) {
         getById(id);
-        updateAuthor.setId(id);
+        updatedAuthor.setId(id);
 
-        return authorRepository.save(updateAuthor);
+        return authorRepository.save(updatedAuthor);
     }
 
-    // 삭제 로직
-    public void delete(Integer id){
+    //삭제 로직
+    public void delete(Integer id) {
         authorRepository.delete(id);
     }
-
 }
