@@ -4,6 +4,7 @@ package com.k02.book_management.repository;
 import com.k02.book_management.model.Author;
 import org.springframework.stereotype.Repository;
 
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Repository
@@ -43,6 +44,7 @@ public class AuthorRepository {
 //    }
 
     //삭제 로직
-    public void delete(Integer id){
+    public void delete(Integer id) {
         store.remove(id);
     }
+}
